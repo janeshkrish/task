@@ -10,3 +10,10 @@ class PersonResponse(BaseModel):
     created_at : datetime
     updated_at : datetime
 
+class BulkPersonResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id : uuid.UUID
+    name : str 
+    age : int 
+    created_at : datetime
+    updated_at : datetime   

@@ -3,8 +3,8 @@ from fastapi import APIRouter, status
 from backend.core.database.dependencies import DatabaseSession
 from backend.core.schemas.responses import SuccessResponse
 
-from backend.schemas.requests.person import CreatePersonRequest
-from backend.schemas.response.person import PersonResponse
+from backend.schemas.requests.person import CreatePersonRequest, CreatePeopleRequest
+from backend.schemas.response.person import PersonResponse, BulkPersonResponse
 from backend.services.person import PersonService
 
 router = APIRouter(
@@ -29,4 +29,23 @@ async def create_product(
         success = True,
         message = "Product Created",
         data = data 
+    )
+
+@router.post(
+    "/bulk",
+    response_model = SuccessResponse[list[BulkPersonResponse]],
+    status_code = status.HTTP_201_CREATED
+)
+async def create_people(
+    body : CreatePeopleRequest,
+    session : DatabaseSession,
+)-> SuccessResponse[list[BulkPersonResponse]]:
+    service = PersonService(session)
+    data = await service.create_people(
+        body
+    )
+    return SuccessResponse(
+        success = True,
+        message = "Product Created",
+        data = data
     )

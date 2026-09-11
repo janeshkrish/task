@@ -3,9 +3,12 @@ from fastapi import APIRouter, status
 from backend.core.database.dependencies import DatabaseSession
 from backend.core.schemas.responses import SuccessResponse
 
-from backend.schemas.requests.person import CreatePersonRequest, CreatePeopleRequest
-from backend.schemas.response.person import PersonResponse, BulkPersonResponse
+from backend.schemas.requests.person import CreatePersonRequest
+from backend.schemas.response.person import PersonResponse
+from backend.schemas.requests.people_request import CreatePeopleRequest
+from backend.schemas.response.people_response import BulkPersonResponse
 from backend.services.person import PersonService
+from backend.services.people_service import BulkPersonService
 
 router = APIRouter(
     prefix = "/person",
@@ -17,7 +20,7 @@ router = APIRouter(
     response_model = SuccessResponse[PersonResponse],
     status_code = status.HTTP_201_CREATED,
 )
-async def create_product(
+async def create_person(
     body : CreatePersonRequest,
     session : DatabaseSession
 )-> SuccessResponse[PersonResponse]:
@@ -27,7 +30,7 @@ async def create_product(
     )
     return SuccessResponse(
         success = True,
-        message = "Product Created",
+        message = "Person Created",
         data = data 
     )
 
@@ -40,12 +43,12 @@ async def create_people(
     body : CreatePeopleRequest,
     session : DatabaseSession,
 )-> SuccessResponse[list[BulkPersonResponse]]:
-    service = PersonService(session)
+    service = BulkPersonService(session)
     data = await service.create_people(
         body
     )
     return SuccessResponse(
         success = True,
-        message = "Product Created",
+        message = "Person Created",
         data = data
     )

@@ -8,8 +8,8 @@ class AppException(Exception):
             error_code : str |None = None,
             details : Any = None
     ):
-        self.message = message,
-        self.status_code = status_code,
+        self.message = message
+        self.status_code = status_code
         self.error_code = error_code or self.__class__.__name__
         self.details = details or {}
         super().__init__(message)

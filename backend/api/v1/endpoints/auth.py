@@ -13,14 +13,14 @@ auth_router = APIRouter(
 
 @auth_router.post(
     "/login",
-    response_model = LoginResponse
+    response_model = SuccessResponse[LoginResponse]
 )
 async def login(
     body : LoginRequest,
     session : DatabaseSession
 ) ->  LoginResponse:
     service = AuthService(session)
-    data = await service().login(
+    data = await service.Auth(
         body
     )
     return SuccessResponse(

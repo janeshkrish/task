@@ -21,7 +21,7 @@ class AuthService(BaseService):
         )
         if not user:
             raise UnauthorizedException(
-                "Invalid email or password"
+                "User not registered"
             )
         if not get_password_hasher().verify_password(
             body.password,

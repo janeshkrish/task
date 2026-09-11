@@ -5,7 +5,8 @@ from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import AsyncConnection
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
-from backend.api.v1.endpoints.person import router
+from backend.api.v1.endpoints.person import person_router
+from backend.api.v1.endpoints.auth import auth_router
 from backend.core.config import get_settings
 from backend.core.database.base import Base
 from backend.core.database.engine import engine
@@ -47,7 +48,8 @@ app = FastAPI(
 # middleware_manifest = register_middleware(app, settings)
 # VisualLogger.middleware_table(middleware_manifest)
 # register_exception_handlers(app)
-app.include_router(router, prefix=settings.API_V1_PREFIX)
+app.include_router(person_router, prefix=settings.API_V1_PREFIX)
+app.include_router(auth_router, prefix=settings.API_V1_PREFIX)
 
 os.makedirs(settings.LOCAL_STORAGE_PATH, exist_ok=True)
 app.mount(

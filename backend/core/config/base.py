@@ -23,6 +23,7 @@ class BaseAppSettings(BaseSettings):
     API_V1_PREFIX: str = "/api/v1"
     JWT_SECRET: SecretStr = Field(default_factory=lambda: SecretStr(secrets.token_urlsafe(32)))
     JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     DATABASE_URL: PostgresDsn = Field(...)
     DATABASE_URL_SYNC: PostgresDsn = Field(...)
     CORS_ORIGINS: list[str] = ["http://localhost:5500", "http://127.0.0.1:5500","http://0.0.0.0:8080/","http://localhost:8080"]

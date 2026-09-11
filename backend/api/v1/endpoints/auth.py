@@ -6,12 +6,12 @@ from backend.schemas.response.auth import LoginResponse
 from backend.core.schemas.responses import SuccessResponse
 from backend.services.auth import AuthService
 
-router = APIRouter(
+auth_router = APIRouter(
     prefix="/auth",
-    rags = ["Auth"]
+    tags = ["Auth"]
 )
 
-@router.post(
+@auth_router.post(
     "/login",
     response_model = LoginResponse
 )

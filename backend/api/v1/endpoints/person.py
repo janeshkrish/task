@@ -10,12 +10,12 @@ from backend.schemas.response.people_response import BulkPersonResponse
 from backend.services.person import PersonService
 from backend.services.people_service import BulkPersonService
 
-router = APIRouter(
+person_router = APIRouter(
     prefix = "/person",
     tags = ["Person"]
 )
 
-@router.post(
+@person_router.post(
     "",
     response_model = SuccessResponse[PersonResponse],
     status_code = status.HTTP_201_CREATED,
@@ -34,7 +34,7 @@ async def create_person(
         data = data 
     )
 
-@router.post(
+@person_router.post(
     "/bulk",
     response_model = SuccessResponse[list[BulkPersonResponse]],
     status_code = status.HTTP_201_CREATED

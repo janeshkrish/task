@@ -13,7 +13,14 @@ class AppException(Exception):
         self.error_code = error_code or self.__class__.__name__
         self.details = details or {}
         super().__init__(message)
-        
+
+class UnauthorizedException(AppException):
+    def __init__(
+            self, 
+            message: str = "Unauthorized access"
+        ):
+        super().__init__(message, 401, "UNAUTHORIZED")
+
 class ConflictException(AppException):
     def __init__(
             self,
